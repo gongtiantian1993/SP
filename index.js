@@ -11,7 +11,8 @@ let dataModel = {
 $(function () {
     eventFnInit();
     getUserInfomation((userInfo)=>{
-        console.log(`当前登录人信息：${userInfo}`);
+        console.log(`当前登录人信息：`);
+        console.log(userInfo);
         $("#loginUser").html(userInfo.userName);
         getDataList((d) => {
             renderHtml(handlerDatas(d));
@@ -140,7 +141,8 @@ function getUserInfomation(callback) {
             let userInfo = {
                 userName,
                 userEmail,
-                current_usergroups
+                current_usergroups,
+                userPhotoUrl: getUserPhotoByEmail(userEmail)
             }
             if(callback){
                 callback(userInfo);
@@ -221,4 +223,8 @@ function handlerDatas(arr) {
     });
     // return Object.values(obj);
     return obj;
+}
+// 获取用户头像地址
+function getUserPhotoByEmail(email) {
+    return 'https://sites.ey.com/_layouts/15/userphoto.aspx?size=L&accountname=' + email;
 }
